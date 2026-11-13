@@ -12,6 +12,7 @@ Narration: ElevenLabs, voice "Mark". ~140 words (Mark reads ~2.75 words/s -> ~58
   - https://globalnews.ca/news/2624817/sweden-invites-world-to-call-random-swedish-citizens-on-new-hotline
 - Suggested topics included meatballs, darkness and feminism.
   - https://www.npr.org/sections/thetwo-way/2016/04/07/473438101/call-a-random-swede-we-tried-it-out
+- The line was open 24 hours a day, 7 days a week (https://adsoftheworld.com/campaigns/the-swedish-number).
 - Results: 188,625 calls (Wikipedia reports 197,678), 186 countries calling, accumulated calling time 376 days,
   longest call 4 h 42 min.
   - https://www2.eurobest.com/winners/2016/pr
@@ -25,14 +26,15 @@ Narration: ElevenLabs, voice "Mark". ~140 words (Mark reads ~2.75 words/s -> ~58
 3. No script. No instructions. Just a stranger, saying "hej".
 4. Suggested topics? Meatballs. Darkness. Feminism.
 5. People called from one hundred and eighty-six countries.
-6. Nearly two hundred thousand calls.
+6. Nearly two hundred thousand calls, day and night.
 7. Add them all up, and the world talked to Sweden for three hundred and seventy-six days.
 8. The longest call lasted four hours... and forty-two minutes.
-9. Maybe that wasn't really about meatballs.
-10. Maybe someone just needed a person to pick up.
-11. Most of us don't have a whole country on speed dial.
-12. That's why we made Feeloy. Jenny always picks up, remembers what you told her, and never runs out of time to talk.
-13. Search Feeloy on the App Store.
+9. That's longer than most movies.
+10. Maybe that wasn't really about meatballs.
+11. Maybe someone just needed a person to pick up.
+12. Most of us don't have a whole country on speed dial.
+13. That's why we made Feeloy. Jenny always picks up, remembers what you told her, and never runs out of time to talk.
+14. Search Feeloy on the App Store.
 
 ## Shot plan (draft, timed to the take later)
 1. Hook: a giant old red telephone on a snowy Swedish hillside with a little red cabin; it rings.
