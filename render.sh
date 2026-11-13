@@ -13,12 +13,20 @@ if [ "$MODE" = remux ]; then
   ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart out/final.mp4
   echo "done: out/final.mp4"; exit 0
 fi
-command -v ffmpeg >/dev/null || { echo "installing ffmpeg"; (apt-get update -qq && apt-get install -y -qq ffmpeg) >/dev/null; }
-command -v node >/dev/null || { echo "installing node 20"; (curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y -qq nodejs) >/dev/null; }
-# Chrome needs a few shared libraries on bare CUDA images
-(apt-get install -y -qq libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libasound2 libpango-1.0-0 libcairo2 libegl1 >/dev/null 2>&1) || true
+export DEBIAN_FRONTEND=noninteractive
+APT_UPDATED=0
+apt_install() { if [ $APT_UPDATED = 0 ]; then apt-get update -qq; APT_UPDATED=1; fi; apt-get install -y -qq --no-install-recommends "$@"; }
+command -v ffmpeg >/dev/null || { echo "installing ffmpeg"; apt_install ffmpeg >/dev/null; }
+command -v node >/dev/null || { echo "installing node 20"; apt_install curl ca-certificates >/dev/null; curl -fsSL https://deb.nodesource.com/setup_20.x | bash - >/dev/null; apt-get install -y -qq nodejs >/dev/null; }
+# Chrome's shared libraries (bare CUDA images have none of them); libasound2 was renamed libasound2t64 on Ubuntu 24.04
+LIBS="libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libegl1 libgl1 libvulkan1 libx11-xcb1 libxshmfence1 fonts-liberation"
+if ! ldconfig -p | grep -q libnss3.so; then
+  echo "installing Chrome libraries"
+  apt_install $LIBS >/dev/null
+  apt_install libasound2t64 >/dev/null 2>&1 || apt_install libasound2 >/dev/null 2>&1 || true
+fi
 [ -d node_modules ] || npm ci --no-audit --no-fund
-npx remotion browser ensure >/dev/null
+npx remotion browser ensure
 export TEMP="$PWD/remotion-tmp" TMP="$PWD/remotion-tmp"; mkdir -p "$TEMP" out
 SCALE=1.3333; [ "$MODE" = preview ] && SCALE=0.6667
 # pick the fastest working WebGL backend: GPU (angle-egl, then vulkan), else CPU (swangle)
@@ -26,7 +34,11 @@ GL=""
 for g in angle-egl vulkan swangle; do
   if timeout 300 npx remotion still src/index.ts ElizaShort out/_probe.jpg --frame=250 --gl=$g --scale=0.25 >/tmp/probe_$g.log 2>&1; then GL=$g; break; fi
 done
-[ -n "$GL" ] || { echo "no WebGL backend worked, see /tmp/probe_*.log"; exit 1; }
+if [ -z "$GL" ]; then
+  echo "no WebGL backend worked. Last lines of each probe:"
+  for g in angle-egl vulkan swangle; do echo "----- $g"; grep -v "GL Driver Message" /tmp/probe_$g.log | tail -n 15; done
+  exit 1
+fi
 echo "WebGL backend: $GL"
 CONC=$( [ "$GL" = swangle ] && nproc || echo 4 )
 npx remotion render src/index.ts ElizaShort out/video.mp4 --codec h264 --crf 16 --scale $SCALE --gl=$GL --concurrency=$CONC --timeout=240000
