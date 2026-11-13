@@ -3,6 +3,7 @@
 #   COMP=ElizaShort (default)  -> out/final.mp4          ("Asked to Leave the Room", ELIZA)
 #   COMP=RentalShort           -> out/rental_final.mp4   ("Rent a Dad", rental families)
 #   COMP=ChatShort             -> out/chat_final.mp4     ("The Slow Lane", the chat checkout)
+#   COMP=MinisterShort         -> out/minister_final.mp4 ("The Minister for Loneliness")
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -18,7 +19,8 @@ case "$COMP" in
   ElizaShort) MIX=production/audio/mix.wav; VID=out/video.mp4; FIN=out/final.mp4; PRE=out/preview.mp4 ;;
   RentalShort) MIX=production-rental/audio/mix.wav; VID=out/rental_video.mp4; FIN=out/rental_final.mp4; PRE=out/rental_preview.mp4 ;;
   ChatShort) MIX=production-chat/audio/mix.wav; VID=out/chat_video.mp4; FIN=out/chat_final.mp4; PRE=out/chat_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort)"; exit 1 ;;
+  MinisterShort) MIX=production-minister/audio/mix.wav; VID=out/minister_video.mp4; FIN=out/minister_final.mp4; PRE=out/minister_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")

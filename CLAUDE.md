@@ -9,6 +9,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `ElizaShort` | ELIZA, 1966: the first chatbot; Weizenbaum's secretary asked him to leave the room | `src/videos/eliza/` | `production/` | `out/final.mp4` |
 | `RentalShort` | Japan's rental families: "Rent a Dad" | `src/videos/rental/` | `production-rental/` | `out/rental_final.mp4` |
 | `ChatShort` | Jumbo's chat checkout (Kletskassa): "The Slow Lane", 71.5 s | `src/videos/chat/` | `production-chat/` | `out/chat_final.mp4` |
+| `MinisterShort` | UK (2018) and Japan (2021) ministers for loneliness, 57.9 s | `src/videos/minister/` | `production-minister/` | `out/minister_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
@@ -65,7 +66,7 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Story recipe that worked
 - Hook (an absurd true fact), then the setting, then three or four escalating beats, then the twist, then the turn to the lonely person, then Feeloy, then the CTA.
 - **CTA spoken: "Search Feeloy on the App Store."** End card: logo plus wordmark.
-- Length 60-62 s, about 3.7 words/s. English only. All facts sourced in SCRIPT.md.
+- Length 60-62 s. Mark reads about 2.75 words/s, so a 60 s script is ~145-150 words (193 words ran 70 s). English only. All facts sourced in SCRIPT.md.
 - Jenny (the companion) has silver hair with pink/blue streaks, a black outfit, and the standard ink-dot eyes like everyone else. Long hair must never read as a beard.
 
 ## Known pitfalls (already hit)
@@ -87,5 +88,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/chat/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy `src/videos/minister/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
