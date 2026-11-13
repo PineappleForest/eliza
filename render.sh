@@ -7,6 +7,7 @@
 #   COMP=SwedenShort           -> out/sweden_final.mp4   ("Call Sweden", The Swedish Number)
 #   COMP=MonowiShort           -> out/monowi_final.mp4   ("Population: One", Monowi, Nebraska)
 #   COMP=CardsShort            -> out/cards_final.mp4    ("100 Cards", Joe Cuba's 100th birthday)
+#   COMP=PastaShort            -> out/pasta_final.mp4    ("No One to Save", Rome police cook spaghetti)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -26,7 +27,8 @@ case "$COMP" in
   SwedenShort) MIX=production-sweden/audio/mix.wav; VID=out/sweden_video.mp4; FIN=out/sweden_final.mp4; PRE=out/sweden_preview.mp4 ;;
   MonowiShort) MIX=production-monowi/audio/mix.wav; VID=out/monowi_video.mp4; FIN=out/monowi_final.mp4; PRE=out/monowi_preview.mp4 ;;
   CardsShort) MIX=production-cards/audio/mix.wav; VID=out/cards_video.mp4; FIN=out/cards_final.mp4; PRE=out/cards_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort)"; exit 1 ;;
+  PastaShort) MIX=production-pasta/audio/mix.wav; VID=out/pasta_video.mp4; FIN=out/pasta_final.mp4; PRE=out/pasta_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")

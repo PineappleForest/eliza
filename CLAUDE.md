@@ -13,6 +13,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `SwedenShort` | The Swedish Number (2016): "Call Sweden", 51.3 s | `src/videos/sweden/` | `production-sweden/` | `out/sweden_final.mp4` |
 | `MonowiShort` | Monowi, Nebraska, population one: "Population: One", 65.7 s | `src/videos/monowi/` | `production-monowi/` | `out/monowi_final.mp4` |
 | `CardsShort` | Joe Cuba asked for 100 birthday cards, got 50,000: "100 Cards", 56.7 s | `src/videos/cards/` | `production-cards/` | `out/cards_final.mp4` |
+| `PastaShort` | Rome police (2016) cook spaghetti for a lonely couple: "No One to Save", 61.0 s | `src/videos/pasta/` | `production-pasta/` | `out/pasta_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
@@ -59,7 +60,7 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 
 ## Voice, captions and sound (per short, in `production*/`)
 1. The script with sources lives in `SCRIPT.md`; the lines are in `voice/script.json`. The user generates the narration in **ElevenLabs** (voice "Mark") and uploads the mp3. **Never ask for or handle their ElevenLabs key.**
-2. Align without speech recognition: `python3 -I tools/align_take.py take.mp3 voice/script.json voice/`. This writes `words.json` and `units.json`. Check the word times against the picture: fast lists ("Beep. Beep. Bag.") and long pauses drift, so find the speech bursts in the waveform and hand-fix those words. Convert the take to `voice/voice.wav` (48 kHz stereo) for the mix.
+2. Align without speech recognition: `python3 -I tools/align_take.py take.mp3 voice/script.json voice/`. This writes `words.json` and `units.json`. Then `python3 -I tools/bursts.py take/mono.wav voice/units.json voice/words.json` (in `production-pasta/tools/`) lists each line's speech bursts with syllable counts next to the aligned words, which makes the hand-fix quick. Check the word times against the picture: fast lists ("Beep. Beep. Bag.") and long pauses drift, so find the speech bursts in the waveform and hand-fix those words. Convert the take to `voice/voice.wav` (48 kHz stereo) for the mix.
 3. Captions: build `voice/phrases.json` (sentences, long ones split at commas), then `python3 tools/caption_pages.py voice/phrases.json voice/words.json src/videos/<name>/captions.json`. Spoken numbers ("twenty-nineteen") are merged into digits for the captions only (see `production-sweden/voice/*_captions.json`; that copy of `caption_pages.py` also keeps "200,000" as one token). Pages hold at most 3 words / 16 characters, Montserrat Black, with the spoken word highlighted pink `#ff5fae`. The user wants these (the style of YouTube short N2p_WCBkkaA).
 4. Sound: `python3 -I audio/make_audio.py <repo dir>` writes `audio/mix.wav`, stems and `cues.md`. The audio is an original synthesized score plus SFX.
    - Mix levels: music +3 dB and SFX -6 dB relative to their base levels; music ducked -3 dB under speech; -15 LUFS integrated.
@@ -88,6 +89,8 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - A character standing close to the lens dwarfs everyone (the caregiver in Cards): keep standing people ~1 m behind the seated one's depth or pull the camera back.
 - Rolling counters (`roll()` in cards/cast.ts) start at one step, never "0".
 - The caption tokenizer must keep "$300" and "2,500" whole (`production-cards/tools/caption_pages.py`).
+- Pushes (`pushK`) shrink the frame over a long shot: badges placed near the edge at the start get cut by the end. Check the last frame of each held shot.
+- Exteriors of other towns can be built out on the grass like Monowi: the Rome street in `pasta/build.ts` (painted apartment fronts `romeFront`, cobbles) is reusable.
 
 ## Working rules
 - Push only to `PineappleForest/eliza`. End commit messages with the attribution lines the session gives you.
@@ -97,5 +100,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/cards/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy `src/videos/pasta/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
