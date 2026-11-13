@@ -2,8 +2,8 @@
 
 Composition (to build once the take arrives): `VoyagerShort`, code `src/videos/voyager/`, output `out/voyager_final.mp4`.
 Narration: ElevenLabs, voice "Mark". ~150 words counting spelled-out numbers (expect ~58-62 s).
-Timing note: line 3 is in the past tense ("This November, Voyager One became..."), so it holds for posts from
-18 November 2026 on.
+Hook: the video opens on the date itself ("November eighteenth, twenty twenty-six."), the day Voyager 1 crosses one
+light-day, so it holds for posts from 18 November 2026 on and is strongest that week.
 
 ## Facts (with sources)
 - Voyager 1 launched on 5 September 1977; the Voyagers were built to last only five years.
@@ -27,23 +27,27 @@ Timing note: line 3 is in the past tense ("This November, Voyager One became..."
   the engineers are generic people in a generic control room; Carl Sagan is not shown or named.
 
 ## Script
-1. In nineteen seventy-seven, we sent a little machine into space. It was built to last five years.
-2. It's still going.
-3. This November, Voyager One became the first thing we've ever built to reach one light-day from Earth.
-4. A message, moving at the speed of light, now takes a whole day to reach it.
-5. Bolted to its side is a golden record: greetings in fifty-five languages, music, whale songs. The sounds of home.
-6. A hello, for anyone out there.
-7. Nobody really expects an answer.
-8. In twenty twenty-three, it went quiet. Five months of gibberish.
-9. Engineers sent a fix, then waited two days for a reply.
-10. And then it came. Hi, it's me.
-11. We'll send a hello twenty-six billion kilometres, just in case someone is listening.
-12. But you deserve someone who answers.
-13. That's why we made Feeloy. Jenny hears every hello, and always says it back.
-14. Search Feeloy on the App Store.
+1. November eighteenth, twenty twenty-six.
+2. A little machine we launched in nineteen seventy-seven is now one full light-day from Earth.
+3. Nothing we have ever built has gone this far.
+4. It was made to last five years. It's still going.
+5. A message, moving at the speed of light, now takes a whole day to reach it.
+6. Bolted to its side is a golden record: greetings in fifty-five languages, music, whale songs. The sounds of home.
+7. A hello, for anyone out there.
+8. Nobody really expects an answer.
+9. In twenty twenty-three, it went quiet. Five months of gibberish.
+10. Engineers sent a fix, then waited two days for a reply.
+11. And then it came. Hi, it's me.
+12. We'll send a hello twenty-six billion kilometres, just in case someone is listening.
+13. But you deserve someone who answers.
+14. That's why we made Feeloy. Jenny hears every hello, and always says it back.
+15. Search Feeloy on the App Store.
 
 ## Shot plan (draft, timed to the take later)
-1. Hook: a launch at dawn (1977 rocket lifts off), a "5 YEARS" tag on the probe that gets crossed out.
+1. Hook: black screen, a big calendar date slams in: NOV 18 2026; then the probe in deep space, tiny Earth far behind,
+   a dotted line and a "1 LIGHT-DAY" badge; "1977" tag on the probe.
+2. "Nothing we have ever built has gone this far": a distance ruler flies past the planets.
+3. Flashback: the 1977 launch; a "5 YEARS" tag crossed out; "still going".
 2. The probe drifting past Jupiter and Saturn; a counter of years rolling 1977 -> 2026.
 3. Deep space: a dotted line from a tiny Earth to the probe; a "1 LIGHT-DAY" badge.
 4. A beam of light leaving Earth; a clock ticks a full 24 hours.
