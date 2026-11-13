@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # One-command render of the Feeloy x ELIZA short on a GPU box (RunPod etc.).
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
+#   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
+#                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
 #   ./render.sh preview    -> out/preview.mp4 (720x1280, quick check)
 #   ./render.sh remux      -> out/final.mp4 again from the already-rendered out/video.mp4 + the current
 #                             production/audio/mix.wav (new narration / soundtrack; no re-render, seconds)
@@ -8,6 +10,11 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 MODE="${1:-final}"
+case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
+EXTRA=("$@")
+if printf '%s ' "${EXTRA[@]}" | grep -q '"logo" *: *true' && [ ! -f public/eliza/logo.png ]; then
+  echo "logo:true needs your logo at public/eliza/logo.png (PNG with transparency works best). Add it or drop the option."; exit 1
+fi
 if [ "$MODE" = remux ]; then
   [ -f out/video.mp4 ] || { echo "out/video.mp4 missing: run ./render.sh first"; exit 1; }
   ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart out/final.mp4
@@ -41,7 +48,7 @@ if [ -z "$GL" ]; then
 fi
 echo "WebGL backend: $GL"
 CONC=$( [ "$GL" = swangle ] && nproc || echo 4 )
-npx remotion render src/index.ts ElizaShort out/video.mp4 --codec h264 --crf 16 --scale $SCALE --gl=$GL --concurrency=$CONC --timeout=240000
+npx remotion render src/index.ts ElizaShort out/video.mp4 --codec h264 --crf 16 --scale $SCALE --gl=$GL --concurrency=$CONC --timeout=240000 "${EXTRA[@]}"
 OUT=out/final.mp4; [ "$MODE" = preview ] && OUT=out/preview.mp4
 ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
 echo "done: $OUT"
