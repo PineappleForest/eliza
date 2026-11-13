@@ -277,8 +277,10 @@ const putSide = (cam: CamInfo, t: number, out: Stage, o: Outfit, i: number, at: 
   }
   out.places.push(pl); blob(out, at[0], at[1], at[2], scale);
 };
-const tag = (out: Stage, x: number, y: number, z: number, i: number, t: number) =>
-  out.fx.push({ key: `tag|${q(0.15 * Math.sin(t * 2.2 + i), 12)}`, cw: 240, ch: 220, draw: (p) => fxTag(p, q(0.15 * Math.sin(t * 2.2 + i), 12)), x, y, z, w: 0.2, h: 0.183 });
+// price tag sway: smooth (fine steps, small and slow); 1/12-rad steps made the tags snap ~5 deg and read as flicker
+const tag = (out: Stage, x: number, y: number, z: number, i: number, t: number) => {
+  const a = q(0.06 * Math.sin(t * 1.6 + i * 1.3), 200);
+  out.fx.push({ key: `tag|${a}`, cw: 240, ch: 220, draw: (p) => fxTag(p, a), x, y, z, w: 0.2, h: 0.183 }); };
 
 // ---- 1 + 14: the showroom lineup (+ 11: empty, the founder at his desk) ----
 const LINE: Outfit[] = [GUESTW, BOSS, DAD, HUSB, SON];
