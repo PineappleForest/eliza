@@ -8,8 +8,9 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 |---|---|---|---|---|
 | `ElizaShort` | ELIZA, 1966: the first chatbot; Weizenbaum's secretary asked him to leave the room | `src/videos/eliza/` | `production/` | `out/final.mp4` |
 | `RentalShort` | Japan's rental families: "Rent a Dad" | `src/videos/rental/` | `production-rental/` | `out/rental_final.mp4` |
+| `ChatShort` | Jumbo's chat checkout (Kletskassa): "The Slow Lane", 71.5 s | `src/videos/chat/` | `production-chat/` | `out/chat_final.mp4` |
 
-Both are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
+All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
 ## Stack
 - Remotion 4.0.290, @remotion/three, three.js 0.169, postprocessing. Exact versions are pinned in `package.json`; don't upgrade.
@@ -54,8 +55,8 @@ Both are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 
 
 ## Voice, captions and sound (per short, in `production*/`)
 1. The script with sources lives in `SCRIPT.md`; the lines are in `voice/script.json`. The user generates the narration in **ElevenLabs** (voice "Mark") and uploads the mp3. **Never ask for or handle their ElevenLabs key.**
-2. Align without speech recognition: `python3 -I tools/align_take.py take.mp3 voice/script.json voice/`. This writes `words.json` and `units.json`. Check the word times against the picture.
-3. Captions: `python3 tools/caption_pages.py voice/phrases.json voice/words.json src/videos/<name>/captions.json`. Pages hold at most 3 words / 16 characters, Montserrat Black, with the spoken word highlighted pink `#ff5fae`. The user wants these (the style of YouTube short N2p_WCBkkaA).
+2. Align without speech recognition: `python3 -I tools/align_take.py take.mp3 voice/script.json voice/`. This writes `words.json` and `units.json`. Check the word times against the picture: fast lists ("Beep. Beep. Bag.") and long pauses drift, so find the speech bursts in the waveform and hand-fix those words. Convert the take to `voice/voice.wav` (48 kHz stereo) for the mix.
+3. Captions: build `voice/phrases.json` (sentences, long ones split at commas), then `python3 tools/caption_pages.py voice/phrases.json voice/words.json src/videos/<name>/captions.json`. Spoken numbers ("twenty-nineteen") are merged into digits for the captions only (see `production-chat/voice/*_captions.json`). Pages hold at most 3 words / 16 characters, Montserrat Black, with the spoken word highlighted pink `#ff5fae`. The user wants these (the style of YouTube short N2p_WCBkkaA).
 4. Sound: `python3 -I audio/make_audio.py <repo dir>` writes `audio/mix.wav`, stems and `cues.md`. The audio is an original synthesized score plus SFX.
    - Mix levels: music +3 dB and SFX -6 dB relative to their base levels; music ducked -3 dB under speech; -15 LUFS integrated.
    - The picture timing is mirrored inside make_audio.py, so any change to shot timing means re-running it.
@@ -86,5 +87,5 @@ Both are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/rental/` to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy `src/videos/chat/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.

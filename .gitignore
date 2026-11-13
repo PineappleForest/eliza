@@ -2,3 +2,6 @@ node_modules/
 out/
 *.log
 remotion-tmp/
+production-chat/take/
+__pycache__/
+production-chat/audio/stems/
