@@ -1,0 +1,25 @@
+take 68.68s, 39 speech runs, overall pace x1.058, 24 groups
+ 0- 0 take [  0.00-  4.88]  4.88s -> slot   0.37-  5.11 ( 4.74s) tempo x1.03  In nineteen sixty-six, a computer program got its own inventor asked t
+ 1- 2 take [  5.41-  9.05]  3.65s -> slot   5.64-  9.48 ( 3.84s) tempo x0.95  M I T. / Joseph Weizenbaum built ELIZA to play a therapist,
+ 3- 3 take [  9.27- 11.54]  2.27s -> slot   9.63- 11.61 ( 1.98s) tempo x1.15  because a therapist can just ask questions.
+ 4- 4 take [ 12.09- 14.37]  2.28s -> slot  12.02- 14.26 ( 2.24s) tempo x1.02  His secretary had watched him build it for months.
+ 5- 5 take [ 14.66- 16.14]  1.49s -> slot  14.52- 15.94 ( 1.43s) tempo x1.04  She knew exactly what it was.
+ 6- 7 take [ 16.65- 18.62]  1.97s -> slot  16.29- 18.36 ( 2.07s) tempo x0.95  She typed a few lines, / turned around,
+ 8- 9 take [ 18.90- 22.34]  3.44s -> slot  18.51- 21.61 ( 3.11s) tempo x1.11  and asked him to leave. / Visitors poured out their secrets.
+10-10 take [ 22.78- 25.33]  2.55s -> slot  21.87- 24.34 ( 2.47s) tempo x1.03  Psychiatrists predicted fully automatic therapy.
+11-12 take [ 25.84- 29.14]  3.30s -> slot  24.59- 27.92 ( 3.32s) tempo x0.99  Carl Sagan pictured rows of therapy booths, / like phone booths.
+13-13 take [ 29.68- 31.29]  1.61s -> slot  28.36- 29.65 ( 1.29s) tempo x1.25  But ELIZA had a problem.
+14-14 take [ 31.70- 32.56]  0.86s -> slot  29.91- 30.73 ( 0.82s) tempo x1.04  Close the session,
+15-15 take [ 32.80- 34.48]  1.69s -> slot  30.86- 32.43 ( 1.56s) tempo x1.08  and it forgot you ever existed.
+16-16 take [ 35.01- 36.68]  1.68s -> slot  32.84- 34.26 ( 1.42s) tempo x1.18  Luckily, it never judged you.
+17-17 take [ 37.19- 39.40]  2.21s -> slot  34.52- 36.58 ( 2.06s) tempo x1.07  Unluckily, it never remembered you either.
+18-19 take [ 40.04- 42.51]  2.46s -> slot  37.02- 38.95 ( 1.92s) tempo x1.28  Here's the trick. / ELIZA was a mirror.
+20-22 take [ 43.06- 47.09]  4.03s -> slot  39.20- 42.60 ( 3.40s) tempo x1.19  I'm sad, / became, why are you sad? / Like talking to your dog.
+23-24 take [ 47.56- 50.46]  2.90s -> slot  42.80- 45.45 ( 2.66s) tempo x1.09  He doesn't follow a word, / but he looks at you like he does,
+25-25 take [ 50.67- 51.81]  1.15s -> slot  45.59- 46.59 ( 1.00s) tempo x1.15  so you keep talking.
+26-26 take [ 52.34- 53.04]  0.70s -> slot  47.00- 47.72 ( 0.72s) tempo x0.97  It got a name:
+27-27 take [ 53.40- 54.52]  1.12s -> slot  47.86- 48.84 ( 0.98s) tempo x1.14  the ELIZA effect.
+28-29 take [ 55.07- 58.43]  3.35s -> slot  49.38- 52.06 ( 2.69s) tempo x1.25  Sixty years later, Feeloy listens, / and remembers.
+30-31 take [ 58.81- 64.19]  5.38s -> slot  52.32- 56.63 ( 4.31s) tempo x1.25  Your day, your people, the little things. / ELIZA got its inventor sen
+32-32 take [ 64.59- 66.52]  1.93s -> slot  56.89- 58.83 ( 1.94s) tempo x0.99  Feeloy just asks how your interview went.
+33-33 take [ 67.05- 68.55]  1.50s -> slot  59.27- 60.75 ( 1.48s) tempo x1.01  Search Feeloy on the App Store.

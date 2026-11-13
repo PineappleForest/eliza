@@ -1,6 +1,6 @@
 # Cues (seconds)
 
-integrated -15.32 LUFS, true peak -1.42 dBTP, length 62.000 s
+integrated -15.13 LUFS, true peak -1.48 dBTP, length 62.000 s
 
 Mix: voice unchanged; music base voice-15 LU then +3 dB, ducked -3 dB under words; SFX base voice-12 LU then -6 dB.
 
