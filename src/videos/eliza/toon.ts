@@ -570,8 +570,8 @@ export const bodyFront = (p: Pen, o: Outfit, opts: FrontOpts) => {
     else if (tag === "type") // reaching out to a keyboard at the right, hand bobbing with k
       arms.push({ pts: [S, [tcx + 1.2 * T.a + 12 * u, S[1] + 0.32 * HH], [tcx + 1.55 * T.a + 30 * u, S[1] + (0.36 - 0.06 * k) * HH]], front: false });
     else // point: arm raised from the side (k 0) to straight out at shoulder height (k 1)
-      arms.push({ pts: [S, lerp2([tcx + 1.12 * T.a + 6 * u, S[1] + 0.42 * HH], [tcx + 1.3 * T.a + 26 * u, S[1] - 0.02 * HH], k),
-        lerp2([tcx + 1.18 * T.a + 8 * u, S[1] + 0.86 * HH], [tcx + 1.4 * T.a + 62 * u, S[1] - 0.06 * HH], k)], front: false });
+      arms.push({ pts: [S, lerp2([tcx + 1.12 * T.a + 6 * u, S[1] + 0.42 * HH], [tcx + 1.3 * T.a + 24 * u, S[1] - 0.2 * HH], k),
+        lerp2([tcx + 1.18 * T.a + 8 * u, S[1] + 0.86 * HH], [tcx + 1.38 * T.a + 54 * u, S[1] - 0.48 * HH], k)], front: false }); // up and out: "out!"
   } else if (mode === "sit") for (const side of [-1, 1]) arms.push({ pts: [sh(side), [tcx + side * (1.1 * T.a + 6 * u), sh(side)[1] + 0.4 * HH], [tcx + side * (1.2 * T.a + 10 * u), torsoBot + 0.04 * HH]], front: false });
   else if (mode === "fall") for (const side of [-1, 1]) arms.push({ pts: [sh(side), [tcx + side * (1.15 * T.a + 12 * u), sh(side)[1] - 0.25 * HH], [tcx + side * (1.3 * T.a + 24 * u), sh(side)[1] - 0.68 * HH]], front: false });
   else {
@@ -668,7 +668,7 @@ export const bodyFront = (p: Pen, o: Outfit, opts: FrontOpts) => {
   }
   if (Array.isArray(prop) && prop[0] === "point" && prop[1] > 0.5) { // index finger beyond the fist
     const [hx, hy] = arms[arms.length - 1].pts[2];
-    p.stroke([[hx, hy], [hx + 16 * u, hy - 1 * u]], 5 * u + 4, INK); p.stroke([[hx, hy], [hx + 16 * u, hy - 1 * u]], 5 * u, skin);
+    p.stroke([[hx, hy], [hx + 13 * u, hy - 9 * u]], 5 * u + 4, INK); p.stroke([[hx, hy], [hx + 13 * u, hy - 9 * u]], 5 * u, skin);
     p.dot(hx, hy, 6 * u);
   }
   if (o.collar) p.poly([[tcx - 16 * u, chin + 0.03 * HH], [tcx, chin + 0.16 * HH], [tcx + 16 * u, chin + 0.03 * HH], [tcx, chin + 0.07 * HH]], o.collar, 2 * u);
