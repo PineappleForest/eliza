@@ -195,9 +195,19 @@ export class World {
     const K = LOOK[s.light], sunDir = this.shotSun(id, s, L);
     this.hemi.color.set(L.sky); this.hemi.groundColor.set(L.ground); this.hemi.intensity = L.hemiI;
     this.sun.color.set(L.sunCol); this.sun.intensity = L.sunI;
-    let Rr = THREE.MathUtils.clamp(dist * 1.15 + 7, 12, 95);
-    if (s.light === "golden") Rr = Math.max(Rr, 30);
-    this.sun.position.copy(focus).addScaledVector(sunDir, 220); this.sun.target.position.copy(focus);
+    // Shadow box frozen per shot (size + centre from the shot's first frame) and snapped to whole shadow texels,
+    // so a moving camera never resamples the shadow map (that resampling made shadows shimmer during push-ins).
+    const c0 = camAt(id, s.a);
+    const dMax = [s.a, (s.a + s.b) / 2, s.b - 1].reduce((m, g) => { const k = camAt(id, g);
+      return Math.max(m, Math.hypot(k.pos[0] - k.look[0], k.pos[1] - k.look[1], k.pos[2] - k.look[2])); }, 0);
+    let Rr = Math.ceil(THREE.MathUtils.clamp(dMax * 1.15 + 7, 12, 95) / 4) * 4;
+    if (s.light === "golden") Rr = Math.max(Rr, 32);
+    const sz = Math.abs(sunDir.y) > 0.99 ? V(1, 0, 0) : V(0, 1, 0);
+    const lx = new THREE.Vector3().crossVectors(sz, sunDir).normalize(), ly = new THREE.Vector3().crossVectors(sunDir, lx);
+    const texel = (2 * Rr) / this.sun.shadow.mapSize.x, anchor = V(...c0.look);
+    const a = Math.round(anchor.dot(lx) / texel) * texel, b = Math.round(anchor.dot(ly) / texel) * texel, n0 = anchor.dot(sunDir);
+    const ctr = lx.multiplyScalar(a).add(ly.multiplyScalar(b)).addScaledVector(sunDir, n0);
+    this.sun.position.copy(ctr).addScaledVector(sunDir, 220); this.sun.target.position.copy(ctr);
     const sc = this.sun.shadow.camera;
     sc.left = -Rr; sc.right = Rr; sc.top = Rr; sc.bottom = -Rr; sc.near = 20; sc.far = 480; sc.updateProjectionMatrix();
     this.sun.shadow.bias = L.bias; this.sun.shadow.normalBias = L.normalBias * (Rr / 12);

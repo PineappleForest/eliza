@@ -761,7 +761,10 @@ const room = (wb: Batch, rm: Room, o: RoomOpt) => {
   wb.add(boxGeo(P(-hw - 0.2, 0, zb - 0.2), P(hw + 0.2, o.h, zb)), o.wall);
   for (const s of [-1, 1]) wb.add(boxGeo(P(s < 0 ? -hw - 0.2 : hw, 0, zb), P(s < 0 ? -hw : hw + 0.2, o.h, zf)), o.wall);
   wb.add(boxGeo(P(-hw - 0.2, o.h, zb - 0.2), P(hw + 0.2, o.h + 0.1, zf), 0, true), o.wall);
-  if (o.wains) { wb.add(boxGeo(P(-hw, 0, zb), P(hw, 1.0, zb + 0.03)), o.wains); for (const s of [-1, 1]) wb.add(boxGeo(P(s < 0 ? -hw : hw - 0.03, 0, zb), P(s < 0 ? -hw + 0.03 : hw, 1.0, zf)), o.wains); }
+  if (o.wains) { // flat panels 5 mm off the walls: a 3 cm box top drew a broken, crawling ink line
+    wb.add(quad(P(-hw, 0, zb + 0.005), P(hw, 0, zb + 0.005), P(hw, 1.0, zb + 0.005), P(-hw, 1.0, zb + 0.005)), o.wains);
+    wb.add(quad(P(-hw + 0.005, 0, zf), P(-hw + 0.005, 0, zb), P(-hw + 0.005, 1.0, zb), P(-hw + 0.005, 1.0, zf)), o.wains);
+    wb.add(quad(P(hw - 0.005, 0, zb), P(hw - 0.005, 0, zf), P(hw - 0.005, 1.0, zf), P(hw - 0.005, 1.0, zb)), o.wains); }
   if (o.win) { const x = o.winX ?? 0; wb.add(quad(P(x - 1.1, 1.0, zb + 0.02), P(x + 1.1, 1.0, zb + 0.02), P(x + 1.1, 2.5, zb + 0.02), P(x - 1.1, 2.5, zb + 0.02)), o.win); }
 };
 const tableRound = (fb: Batch, rm: Room, x: number, z: number, r: number) => {
@@ -788,7 +791,9 @@ export const buildRooms = (root: THREE.Object3D) => {
   const P = (x: number, y: number, z: number) => V(...R("show", x, y, z));
   fb.add(boxGeo(P(-3.6, 0, -3.7), P(3.6, STAGE_Y, -2.3)), col("stage", "#2f5f6a"));
   fb.add(boxGeo(P(-3.65, STAGE_Y, -3.75), P(3.65, STAGE_Y + 0.04, -2.25)), col("stageTrim", "#d9b46a"));
-  for (const x of LINEUP) fb.add(cyl(0.32, 0.32, 0.02, 24), col("spot", "#f6e7b8"), new THREE.Matrix4().makeTranslation(...R("show", x, STAGE_Y + 0.05, -3.0)));
+  // spot discs: flat 64-segment circles 3 mm above the trim top (a thin cylinder rim got jagged, crawling ink)
+  for (const x of LINEUP) fb.add(new THREE.CircleGeometry(0.32, 64), col("spot", "#f6e7b8"),
+    new THREE.Matrix4().makeTranslation(...R("show", x, STAGE_Y + 0.043, -3.0)).multiply(new THREE.Matrix4().makeRotationX(-Math.PI / 2)));
   for (const [i, x] of [-3.2, -1.1, 1.1, 3.2].entries()) fb.add(quad(P(x - 0.5, 1.7, -3.97), P(x + 0.5, 1.7, -3.97), P(x + 0.5, 2.95, -3.97), P(x - 0.5, 2.95, -3.97)),
     lam("artShow" + i, () => ({ map: frameArt("s" + i, ["#f272b0", "#5a8fc2", "#f2c94c", "#6aab4f"][i], ["#2f5f6a", "#c25a7a", "#3f6fb5", "#d9a441"][i]) })));
   tableRect(fb, "show", 1.9, 3.6, -1.0, -0.2, col("deskShow", "#6b4a33"), 0.76); // the founder's desk (shot 11)

@@ -285,7 +285,7 @@ const LINE: Outfit[] = [GUESTW, BOSS, DAD, HUSB, SON];
 const lineup = (cam: CamInfo, t: number, out: Stage, callback: boolean) => {
   const f = F(t);
   LINE.forEach((o, k) => {
-    const x = LINEUP[k], at: V3 = R("show", x, STAGE_Y, -3.0);
+    const x = LINEUP[k], at: V3 = R("show", x, STAGE_Y + 0.044, -3.0 - (k % 2) * 0.06); // on the spot disc; alternate depth so overlapping cards never share a plane
     const dad = k === 2;
     if (callback) put(cam, t, out, { o, i: 10 + k, at, expr: f > 1768 && k % 2 ? "nervous" : "neutral", prop: "watch", look: k < 2 ? 1 : k > 2 ? -1 : 0 });
     else put(cam, t, out, { o, i: 10 + k, at, expr: dad ? (f > 40 ? "grin" : "smile") : "smile", wave: dad && f > 46 ? wob(t, 2.6) : undefined });
