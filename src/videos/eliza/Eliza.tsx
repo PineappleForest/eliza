@@ -114,12 +114,16 @@ const EndCard: React.FC<{ f: number }> = ({ f }) => {
   return (
     <AbsoluteFill style={{ opacity: a, background: "linear-gradient(180deg, #2d3e74 0%, #6f6fb0 48%, #f3a6c8 100%)", alignItems: "center", justifyContent: "center" }}>
       <div style={{ transform: `scale(${s})`, display: "flex", flexDirection: "column", alignItems: "center", gap: 64 }}>
-        <div style={{ width: 520, height: 520, borderRadius: 120, overflow: "hidden", boxShadow: "0 30px 80px rgba(20,16,40,0.45)", border: "10px solid #ffffff", background: "#ffffff" }}>
-          <Img src={staticFile("eliza/feeloy_art.png")} style={{ width: "112%", marginLeft: "-6%", marginTop: "-2%" }} />
-        </div>
-        {logo ? <Img src={staticFile("eliza/logo.png")} style={{ width: 640 }} />
-          : <div style={{ fontFamily: "'Nunito', 'Quicksand', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif", fontWeight: 800, fontSize: 168, letterSpacing: 4, color: "#ffffff",
-              textShadow: "0 8px 30px rgba(30,20,60,0.35)" }}>Feeloy</div>}
+        {logo
+          // the Feeloy logo is the app icon; its PNG has a baked-in checkerboard outside the rounded square, so clip to it
+          ? <div style={{ width: 500, height: 500, borderRadius: "13.5%", overflow: "hidden", boxShadow: "0 30px 80px rgba(20,16,40,0.45)" }}>
+              <Img src={staticFile("eliza/logo.png")} style={{ width: "103%", height: "103%", marginLeft: "-1.5%", marginTop: "-1.5%" }} />
+            </div>
+          : <div style={{ width: 520, height: 520, borderRadius: 120, overflow: "hidden", boxShadow: "0 30px 80px rgba(20,16,40,0.45)", border: "10px solid #ffffff", background: "#ffffff" }}>
+              <Img src={staticFile("eliza/feeloy_art.png")} style={{ width: "112%", marginLeft: "-6%", marginTop: "-2%" }} />
+            </div>}
+        <div style={{ fontFamily: "'Nunito', 'Quicksand', 'Avenir Next', 'Helvetica Neue', Arial, sans-serif", fontWeight: 800, fontSize: 168, letterSpacing: 4, color: "#ffffff",
+          textShadow: "0 8px 30px rgba(30,20,60,0.35)" }}>Feeloy</div>
       </div>
     </AbsoluteFill>
   );
