@@ -19,7 +19,8 @@ import { InkPass, noInkFallback } from "./ink";
 import { LensBlur, GrainEffect } from "./lensblur";
 import { GradeEffect, GRADES, GRADE_STRENGTH, gradeFor } from "./grade";
 import { Kit } from "./build";
-import { TOTAL, FLASH_AT, CARD_AT, SHOTS, layersAt, dofAt } from "./story";
+import { TOTAL, FLASH_AT, CARD_AT, SHOTS, layersAt, dofAt, FPS } from "./story";
+import CAPTIONS from "./captions.json";
 
 export const ELIZA_FRAMES = TOTAL;
 
@@ -123,9 +124,49 @@ const EndCard: React.FC<{ f: number }> = ({ f }) => {
   );
 };
 
+// ---------------- karaoke captions ----------------
+// Pages of 1-3 words (production tools/caption_pages.py, timed to the narration). The spoken word turns Feeloy pink and
+// pops; pages pop in. Low in the frame (faces sit above), lower still on the end card. Turn off: inputProps { captions: false }.
+type Page = { s: number; e: number; w: [string, number, number][] };
+const PAGES = CAPTIONS as Page[];
+const CAP_FONT = "ElizaCaps";
+const useCaptionFont = () => {
+  const [handle] = useState(() => delayRender("caption font"));
+  useEffect(() => {
+    const f = new FontFace(CAP_FONT, `url(${staticFile("eliza/fonts/montserrat-latin-900-normal.woff2")})`, { weight: "900" });
+    f.load().then((ff) => { (document.fonts as unknown as { add: (x: FontFace) => void }).add(ff); continueRender(handle); }).catch(() => continueRender(handle));
+  }, [handle]);
+};
+const Captions: React.FC<{ f: number }> = ({ f }) => {
+  const t = f / FPS;
+  const i = PAGES.findIndex((p, k) => t >= p.s - 0.06 && t < Math.min(p.e + 0.45, (PAGES[k + 1]?.s ?? 1e9) - 0.06));
+  if (i < 0) return null;
+  const pg = PAGES[i], since = t - (pg.s - 0.06);
+  const popIn = interpolate(since, [0, 0.1], [0.82, 1], { extrapolateRight: "clamp" });
+  const onCard = f >= CARD_AT;
+  return (
+    <AbsoluteFill style={{ justifyContent: "flex-start", alignItems: "center", paddingTop: onCard ? 1610 : 1290, pointerEvents: "none" }}>
+      <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", maxWidth: 1040, transform: `scale(${popIn})`,
+        fontFamily: `${CAP_FONT}, 'Arial Black', sans-serif`, fontWeight: 900, fontSize: 80, lineHeight: 1.15, textTransform: "uppercase", letterSpacing: 1 }}>
+        {pg.w.map(([w, s, e], k) => {
+          const last = k === pg.w.length - 1;
+          const on = t >= s - 0.03 && (t < e || (last && t < pg.e + 0.45)) ;
+          const pop = on ? interpolate(t - (s - 0.03), [0, 0.07, 0.16], [1, 1.14, 1.08], { extrapolateRight: "clamp" }) : 1;
+          return (
+            <span key={k} style={{ display: "inline-block", margin: "0 20px", transform: `scale(${pop})`, color: on ? "#ff5fae" : "#ffffff",
+              WebkitTextStroke: "14px #1b1420", paintOrder: "stroke fill", textShadow: "0 8px 0 rgba(27,20,32,0.55)" }}>{w}</span>
+          );
+        })}
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 export const ElizaShort: React.FC = () => {
   const f = useCurrentFrame();
   const kit = useKit();
+  useCaptionFont();
+  const caps = (getInputProps() as { captions?: boolean }).captions !== false;
   if (!kit) return null;
   const flash = f >= FLASH_AT && f < FLASH_AT + 4 ? [1, 0.75, 0.45, 0.2][f - FLASH_AT] : 0;
   const cardOnly = f >= CARD_AT + 8;
@@ -134,6 +175,7 @@ export const ElizaShort: React.FC = () => {
       {!cardOnly && layersAt(f).map((l, i) => <ShotView key={i ? "over" : "base"} id={l.id} kit={kit} alpha={l.alpha} />)}
       {flash > 0 && <AbsoluteFill style={{ background: "#ffffff", opacity: flash }} />}
       {f >= CARD_AT && <EndCard f={f} />}
+      {caps && <Captions f={f} />}
     </AbsoluteFill>
   );
 };

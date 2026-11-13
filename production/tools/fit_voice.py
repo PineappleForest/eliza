@@ -3,6 +3,8 @@
 2. dynamic programming: group the runs into the script's phrases so each phrase's length matches its slot length
    (scaled by the take's overall pace), preferring boundaries on longer pauses (sentence ends)
 3. each phrase is time-fitted with ffmpeg atempo into its slot and placed at the slot start
+4. word timings for captions: each group's words are spread over its voiced runs (after the fit), weighted by
+   phoneme count (espeak via kokoro_onnx when available, else letters) -> <out voice>.words.json
 usage: python3 -I fit_voice.py <take audio> <phrases.json> <out voice.wav> [report.txt]
 """
 import json, os, subprocess, sys, tempfile, wave
@@ -72,6 +74,14 @@ while k > 0:
     r0, k0 = bk[(r, k)]; groups.append((k0, k, runs[r0][0], runs[r - 1][1])); r, k = r0, k0
 groups.reverse()
 out = np.zeros(int(round(61.548 * SR)))
+import re
+try:
+    from kokoro_onnx.tokenizer import Tokenizer
+    _tk = Tokenizer()
+    weight = lambda w: max(1, len(_tk.phonemize(w.replace(".", " ").replace("1966", "nineteen sixty six"), "en-us")))
+except Exception:
+    weight = lambda w: max(1, len(w))
+WORDS = []
 lines = [f"take {len(x)/SR:.2f}s, {R} speech runs, overall pace x{pace:.3f}, {len(groups)} groups"]
 for (k0, k1, a, b) in groups:
     start, end = P[k0]["start"], P[k1 - 1]["end"]
@@ -83,6 +93,18 @@ for (k0, k1, a, b) in groups:
     y = y[:m] * np.r_[np.linspace(0, 1, 96), np.ones(max(0, m - 192)), np.linspace(1, 0, 96)][:m]
     out[i0: i0 + m] += y
     spill = len(y) / SR - slot - 0.015
+    # caption word timings: voiced runs of this group mapped into the picture's time, words spread over them
+    vr = [((max(ra, a) - a) / SR / t + start, (min(rb, b) - a) / SR / t + start) for ra, rb in runs if rb > a and ra < b]
+    toks = [w for p in P[k0:k1] for w in re.findall(r"[A-Za-z0-9'.-]+", p["text"].replace("M I T.", "M.I.T."))]
+    wt = [weight(w) for w in toks]; tot = sum(wt); vt = sum(e - s_ for s_, e in vr)
+    def at(u):  # u in [0, vt] voiced seconds -> picture time
+        for s_, e in vr:
+            if u <= e - s_: return s_ + u
+            u -= e - s_
+        return vr[-1][1]
+    c = 0.0
+    for w, n in zip(toks, wt):
+        WORDS.append({"w": w, "s": round(at(vt * c / tot), 3), "e": round(at(vt * (c + n) / tot), 3)}); c += n
     txt = " / ".join(p["text"] for p in P[k0:k1])
     lines.append(f"{k0:2d}-{k1-1:2d} take [{a/SR:6.2f}-{b/SR:6.2f}] {L:5.2f}s -> slot {start:6.2f}-{end:6.2f} ({slot:5.2f}s) tempo x{t:.2f}{'  SPILL %+.2fs' % spill if spill > 0.08 else ''}  {txt[:70]}")
 out = out / max(1e-9, np.abs(out).max()) * 0.89
@@ -90,3 +112,5 @@ save(out_wav, out)
 txt = "\n".join(lines)
 print(txt)
 if report_path: open(report_path, "w").write(txt + "\n")
+json.dump({"words": WORDS}, open(out_wav.rsplit(".", 1)[0] + ".words.json", "w"), indent=0)
+print(len(WORDS), "caption words")

@@ -21,6 +21,9 @@ back to CPU (swangle, much slower), renders, and muxes `production/audio/mix.wav
   `world.ts` / `build.ts` (town, domed institute, booth street, 1966 office + corridor), `Eliza.tsx` (composition, flash,
   end card). Look modules (`ink.ts`, `lensblur.ts`, `grade.ts`, `shade.ts`, `lights.ts`, `cardshade.ts`, `paint.ts`) come
   from the claude-animated-shorts template (MIT).
+- Captions: karaoke subtitles (current word in Feeloy pink) from `src/videos/eliza/captions.json`, built by
+  `production/tools/caption_pages.py` from the narration's word times; font Montserrat Black (OFL, `public/eliza/fonts/`).
+  Render without them: `npx remotion render ... --props='{"captions":false}'`.
 - `public/eliza/feeloy_art.png` — app-icon art on the end card. Drop a logo at `public/eliza/logo.png` and render with
   `--props='{"logo":true}'` to replace the "Feeloy" wordmark.
 - `production/` — `SCRIPT.md` (script + sources), `voice/` (narration + word timings), `audio/` (score/SFX/mix
