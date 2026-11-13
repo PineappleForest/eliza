@@ -12,6 +12,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `MinisterShort` | UK (2018) and Japan (2021) ministers for loneliness, 57.9 s | `src/videos/minister/` | `production-minister/` | `out/minister_final.mp4` |
 | `SwedenShort` | The Swedish Number (2016): "Call Sweden", 51.3 s | `src/videos/sweden/` | `production-sweden/` | `out/sweden_final.mp4` |
 | `MonowiShort` | Monowi, Nebraska, population one: "Population: One", 65.7 s | `src/videos/monowi/` | `production-monowi/` | `out/monowi_final.mp4` |
+| `CardsShort` | Joe Cuba asked for 100 birthday cards, got 50,000: "100 Cards", 56.7 s | `src/videos/cards/` | `production-cards/` | `out/cards_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
@@ -84,6 +85,9 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - A "front" insert card (phone, licence) is only sharp when the camera aims ~0.5 m ahead (the lens focuses on the look point).
 - New bubble icons need both the type and the drawing branch in `fxBubble` (the "note" icon was once typed but never drawn).
 - Exterior sets far from the river town work: Monowi sits on the open grass at (60, -170); check hills/houses before placing.
+- A character standing close to the lens dwarfs everyone (the caregiver in Cards): keep standing people ~1 m behind the seated one's depth or pull the camera back.
+- Rolling counters (`roll()` in cards/cast.ts) start at one step, never "0".
+- The caption tokenizer must keep "$300" and "2,500" whole (`production-cards/tools/caption_pages.py`).
 
 ## Working rules
 - Push only to `PineappleForest/eliza`. End commit messages with the attribution lines the session gives you.
@@ -93,5 +97,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/monowi/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy `src/videos/cards/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
