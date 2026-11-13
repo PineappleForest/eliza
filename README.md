@@ -1,4 +1,11 @@
-# Feeloy × ELIZA — "Asked to Leave the Room" (62 s vertical short)
+# Feeloy shorts
+
+- **ElizaShort**: "Asked to Leave the Room", the 1966 ELIZA story (`src/videos/eliza/`, `production/`)
+- **RentalShort**: "Rent a Dad", Japan's rental families (`src/videos/rental/`, `production-rental/`)
+
+Render either with `COMP=RentalShort ./render.sh final --props='{"logo":true}'` (default COMP is ElizaShort).
+
+## ElizaShort: "Asked to Leave the Room" (62 s vertical short)
 
 A ~62 s, 1440×2560 cartoon short: the true 1966 story of ELIZA, the first chatbot, whose creator's own secretary asked him
 to leave the room, handing off to Feeloy, the companion that listens and remembers. Rendered with three.js inside Remotion

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# One-command render of the Feeloy x ELIZA short on a GPU box (RunPod etc.).
+# One-command render of the Feeloy shorts on a GPU box (RunPod etc.).
+#   COMP=ElizaShort (default)  -> out/final.mp4          ("Asked to Leave the Room", ELIZA)
+#   COMP=RentalShort           -> out/rental_final.mp4   ("Rent a Dad", rental families)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -10,15 +12,21 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 MODE="${1:-final}"
+COMP="${COMP:-ElizaShort}"
+case "$COMP" in
+  ElizaShort) MIX=production/audio/mix.wav; VID=out/video.mp4; FIN=out/final.mp4; PRE=out/preview.mp4 ;;
+  RentalShort) MIX=production-rental/audio/mix.wav; VID=out/rental_video.mp4; FIN=out/rental_final.mp4; PRE=out/rental_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort)"; exit 1 ;;
+esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")
 if printf '%s ' "${EXTRA[@]}" | grep -q '"logo" *: *true' && [ ! -f public/eliza/logo.png ]; then
   echo "logo:true needs your logo at public/eliza/logo.png (PNG with transparency works best). Add it or drop the option."; exit 1
 fi
 if [ "$MODE" = remux ]; then
-  [ -f out/video.mp4 ] || { echo "out/video.mp4 missing: run ./render.sh first"; exit 1; }
-  ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart out/final.mp4
-  echo "done: out/final.mp4"; exit 0
+  [ -f "$VID" ] || { echo "$VID missing: run ./render.sh first"; exit 1; }
+  ffmpeg -y -loglevel error -i "$VID" -i "$MIX" -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$FIN"
+  echo "done: $FIN"; exit 0
 fi
 export DEBIAN_FRONTEND=noninteractive
 APT_UPDATED=0
@@ -39,7 +47,7 @@ SCALE=1.3333; [ "$MODE" = preview ] && SCALE=0.6667
 # pick the fastest working WebGL backend: GPU (angle-egl, then vulkan), else CPU (swangle)
 GL=""
 for g in angle-egl vulkan swangle; do
-  if timeout 300 npx remotion still src/index.ts ElizaShort out/_probe.jpg --frame=250 --gl=$g --scale=0.25 >/tmp/probe_$g.log 2>&1; then GL=$g; break; fi
+  if timeout 300 npx remotion still src/index.ts "$COMP" out/_probe.jpg --frame=250 --gl=$g --scale=0.25 >/tmp/probe_$g.log 2>&1; then GL=$g; break; fi
 done
 if [ -z "$GL" ]; then
   echo "no WebGL backend worked. Last lines of each probe:"
@@ -48,7 +56,7 @@ if [ -z "$GL" ]; then
 fi
 echo "WebGL backend: $GL"
 CONC=$( [ "$GL" = swangle ] && nproc || echo 4 )
-npx remotion render src/index.ts ElizaShort out/video.mp4 --codec h264 --crf 16 --scale $SCALE --gl=$GL --concurrency=$CONC --timeout=240000 "${EXTRA[@]}"
-OUT=out/final.mp4; [ "$MODE" = preview ] && OUT=out/preview.mp4
-ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
+npx remotion render src/index.ts "$COMP" "$VID" --codec h264 --crf 16 --scale $SCALE --gl=$GL --concurrency=$CONC --timeout=240000 "${EXTRA[@]}"
+OUT=$FIN; [ "$MODE" = preview ] && OUT=$PRE
+ffmpeg -y -loglevel error -i "$VID" -i "$MIX" -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart "$OUT"
 echo "done: $OUT"
