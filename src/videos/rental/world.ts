@@ -40,7 +40,7 @@ const haloTex = () => ctex("sunHalo", 256, 256, (g) => {
 });
 /** per-shot sun override (degrees relative to the shot's mean view): front-light the dome, light the office from the window side */
 const INSIDE = { az: 150, el: 48 }; // interiors: sun over the lens' shoulder, so the walls the camera sees are lit
-const SUN_SHOT: Record<number, { az?: number; el?: number }> = { 1: INSIDE, 3: INSIDE, 4: INSIDE, 5: INSIDE, 14: INSIDE,
+const SUN_SHOT: Record<number, { az?: number; el?: number }> = { 1: { az: 120, el: 42 }, 3: INSIDE, 4: INSIDE, 5: INSIDE, 14: INSIDE,
   9: { az: 160, el: 14 }, 10: { az: 140, el: 30 }, 11: { az: 160, el: 12 }, // low warm sun / moon from behind the lens
   2: { az: 120, el: 42 }, 6: { az: 120, el: 12 }, 7: { az: 120, el: 42 }, 8: { az: 120, el: 42 }, 12: { az: 115, el: 14 }, 13: { az: 115, el: 14 } };
 

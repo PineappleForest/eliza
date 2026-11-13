@@ -22,7 +22,7 @@ export const STAGE_Y = 0.25;
 export type Light = "day" | "golden" | "night";
 export type ShotDef = { id: number; a: number; b: number; light: Light; sunAz?: number; sunEl?: number };
 export const SHOTS: ShotDef[] = [
-  { id: 1, a: 0, b: 84, light: "day" },          // hook: the showroom lineup, the rental dad
+  { id: 1, a: 0, b: 84, light: "day" },          // hook: the rental dad alone on the quay, price tag on, waves on "dad"
   { id: 2, a: 84, b: 207, light: "day" },        // dad + kid on the quay, checks his watch on "an hour"
   { id: 3, a: 207, b: 398, light: "day" },       // wedding guests: price tags, a singer, a tearful speech
   { id: 4, a: 398, b: 481, light: "day" },       // all thirty guests wave; the groom deadpan
@@ -80,7 +80,8 @@ const dolly = (pos: V3, look: V3, k: number, rest: Partial<Cam> = {}): Shot =>
   ({ pos: [look[0] + (pos[0] - look[0]) * k, look[1] + (pos[1] - look[1]) * k, look[2] + (pos[2] - look[2]) * k], look, ...rest });
 
 // 1 showroom: wide lineup -> push on the dad (centre)
-const S1a = (f: number) => dolly(R("show", 0, 1.65, 6.0), R("show", 0, 1.3, -3.0), pushK(f, 0, 0.004, 0.008, 40), { fov: 48 });
+export const HOOK_X = 22; // shot 1: the rental dad alone on the quay, a little further along than the shot-2 walk
+const S1a = (f: number) => dolly([HOOK_X + 0.5, D0 + 1.55, QUAY_Z + 5.4], [HOOK_X, D0 + 1.15, QUAY_Z + 1.2], pushK(f, 0, 0.0025, 0.004, 40), { fov: 40, roll: 0.03 });
 // 2 quay: dad + kid walking toward screen-left along the quay; closer on "an hour"
 const QX = (f: number) => 16 - 0.9 * Math.min(Math.max(0, T(f) - T(84)), T(178) - T(84)); // walking along -x at 0.9 m/s, stops at f178 (the watch)
 const S2a = (f: number) => { const x = QX(f); return dolly([x - 1.4, D0 + 2.0, QUAY_Z + 8.5], [x - 0.1, D0 + 0.95, QUAY_Z + 1.2], pushK(f, 84, 0.0015), { fov: 40 }); };

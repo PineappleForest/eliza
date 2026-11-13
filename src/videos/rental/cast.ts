@@ -4,7 +4,7 @@
 import * as THREE from "three";
 import { Pen, bodyFront, bodySide, fxPhone, fxShadow, fxContact, fxTag, fxNightlight, fxNote, COMPANION, KID, INK,
   Outfit, Expr, FrontOpts, SideOpts, Prop } from "./toon";
-import { FPS, D0, SHOTS, V3, R, BENCH, QUAY_Z, LINEUP, STAGE_Y, QX_AT, COUPLE_X, GIRL_BENCH_X, smooth, clamp01 } from "./story";
+import { FPS, D0, SHOTS, V3, R, BENCH, QUAY_Z, LINEUP, STAGE_Y, QX_AT, HOOK_X, COUPLE_X, GIRL_BENCH_X, smooth, clamp01 } from "./story";
 import { LIGHTS } from "./lights";
 import { NOINK } from "./ink";
 import { cardShade, blobMaterial, CARD_K } from "./cardshade";
@@ -294,6 +294,12 @@ const lineup = (cam: CamInfo, t: number, out: Stage, callback: boolean) => {
     tag(out, at[0] + 0.2, at[1] + 1.08, at[2] + 0.12, k, t);
   });
 };
+// ---- 1: the hook, one rental dad on the quay with his price tag; grins on "rent", waves on "dad" ----
+const hookDad = (cam: CamInfo, t: number, out: Stage) => {
+  const f = F(t), at: V3 = [HOOK_X, D0, QUAY_Z + 1.2];
+  put(cam, t, out, { o: DAD, i: 10, at, expr: f > 42 ? "grin" : "smile", wave: f > 56 ? wob(t, 2.6) : undefined });
+  tag(out, at[0] + 0.2, at[1] + 1.08, at[2] + 0.12, 2, t);
+};
 // ---- 2: rental dad + kid walk the quay, he checks his watch ----
 const quayWalk = (cam: CamInfo, t: number, out: Stage) => {
   const f = F(t), x = QX_AT(f), z = QUAY_Z + 1.2, walking = f < 178, ph = q(((f - 84) / 22) % 1, 12);
@@ -407,7 +413,7 @@ export const stage = (id: number, t: number, cam: CamInfo): Stage => {
   findSun(cam, SUN);
   if (cam.quat) { const fw = new THREE.Vector3(0, 0, -1).applyQuaternion(cam.quat); camLook = [cam.pos.x + fw.x * 0.45, cam.pos.y + fw.y * 0.45, cam.pos.z + fw.z * 0.45]; }
   switch (id) {
-    case 1: lineup(cam, t, out, false); break;
+    case 1: hookDad(cam, t, out); break;
     case 2: quayWalk(cam, t, out); break;
     case 3: case 4: wedding(cam, t, out, id); break;
     case 5: office(cam, t, out); break;
