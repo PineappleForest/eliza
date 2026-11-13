@@ -8,6 +8,7 @@
 #   COMP=MonowiShort           -> out/monowi_final.mp4   ("Population: One", Monowi, Nebraska)
 #   COMP=CardsShort            -> out/cards_final.mp4    ("100 Cards", Joe Cuba's 100th birthday)
 #   COMP=PastaShort            -> out/pasta_final.mp4    ("No One to Save", Rome police cook spaghetti)
+#   COMP=VoyagerShort          -> out/voyager_final.mp4  ("Still Saying Hello", Voyager 1 at one light-day)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -28,7 +29,8 @@ case "$COMP" in
   MonowiShort) MIX=production-monowi/audio/mix.wav; VID=out/monowi_video.mp4; FIN=out/monowi_final.mp4; PRE=out/monowi_preview.mp4 ;;
   CardsShort) MIX=production-cards/audio/mix.wav; VID=out/cards_video.mp4; FIN=out/cards_final.mp4; PRE=out/cards_preview.mp4 ;;
   PastaShort) MIX=production-pasta/audio/mix.wav; VID=out/pasta_video.mp4; FIN=out/pasta_final.mp4; PRE=out/pasta_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort)"; exit 1 ;;
+  VoyagerShort) MIX=production-voyager/audio/mix.wav; VID=out/voyager_video.mp4; FIN=out/voyager_final.mp4; PRE=out/voyager_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")

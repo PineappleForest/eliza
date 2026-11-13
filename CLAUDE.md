@@ -14,6 +14,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `MonowiShort` | Monowi, Nebraska, population one: "Population: One", 65.7 s | `src/videos/monowi/` | `production-monowi/` | `out/monowi_final.mp4` |
 | `CardsShort` | Joe Cuba asked for 100 birthday cards, got 50,000: "100 Cards", 56.7 s | `src/videos/cards/` | `production-cards/` | `out/cards_final.mp4` |
 | `PastaShort` | Rome police (2016) cook spaghetti for a lonely couple: "No One to Save", 61.0 s | `src/videos/pasta/` | `production-pasta/` | `out/pasta_final.mp4` |
+| `VoyagerShort` | Voyager 1 reaches one light-day (18 Nov 2026): "Still Saying Hello", 60.0 s | `src/videos/voyager/` | `production-voyager/` | `out/voyager_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
@@ -91,6 +92,9 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - The caption tokenizer must keep "$300" and "2,500" whole (`production-cards/tools/caption_pages.py`).
 - Pushes (`pushK`) shrink the frame over a long shot: badges placed near the edge at the start get cut by the end. Check the last frame of each held shot.
 - Exteriors of other towns can be built out on the grass like Monowi: the Rome street in `pasta/build.ts` (painted apartment fronts `romeFront`, cobbles) is reusable.
+- Deep space works (`voyager/`): a star sphere (radius 180, unlit, `fog: false`, BackSide) high above the valley at `SPACE`, fog pushed out for `SPACE_SHOTS` in world.ts, planets as lit spheres, a 3D probe. Wide space shots use DOF 0, so front-insert badges stay sharp there.
+- Faceted cylinders put a VERTEX at +x unless rotated: a decal on a "flat" side gets a ridge through it (the gold record). Push decals past the full radius.
+- Big wall screens in a room: keep standing characters within ~±1 m of centre at a 5 m lens distance, or they fall off the vertical frame.
 
 ## Working rules
 - Push only to `PineappleForest/eliza`. End commit messages with the attribution lines the session gives you.
@@ -100,5 +104,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/pasta/` (the newest) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy `src/videos/voyager/` (the newest; `pasta/` for an ordinary street + flat story) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
