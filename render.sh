@@ -5,6 +5,7 @@
 #   COMP=ChatShort             -> out/chat_final.mp4     ("The Slow Lane", the chat checkout)
 #   COMP=MinisterShort         -> out/minister_final.mp4 ("The Minister for Loneliness")
 #   COMP=SwedenShort           -> out/sweden_final.mp4   ("Call Sweden", The Swedish Number)
+#   COMP=MonowiShort           -> out/monowi_final.mp4   ("Population: One", Monowi, Nebraska)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -22,7 +23,8 @@ case "$COMP" in
   ChatShort) MIX=production-chat/audio/mix.wav; VID=out/chat_video.mp4; FIN=out/chat_final.mp4; PRE=out/chat_preview.mp4 ;;
   MinisterShort) MIX=production-minister/audio/mix.wav; VID=out/minister_video.mp4; FIN=out/minister_final.mp4; PRE=out/minister_preview.mp4 ;;
   SwedenShort) MIX=production-sweden/audio/mix.wav; VID=out/sweden_video.mp4; FIN=out/sweden_final.mp4; PRE=out/sweden_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort)"; exit 1 ;;
+  MonowiShort) MIX=production-monowi/audio/mix.wav; VID=out/monowi_video.mp4; FIN=out/monowi_final.mp4; PRE=out/monowi_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")

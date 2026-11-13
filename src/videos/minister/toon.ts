@@ -1100,6 +1100,7 @@ export const fxBubble = (p: Pen, icon: BubbleIcon, pop = 1) => {
   } else if (icon === "cat") catFace(p, 250, 190, 0.9);
   else if (icon === "ask") { const g = p.g; g.font = "900 150px Montserrat, Arial, sans-serif"; g.textAlign = "center"; g.textBaseline = "middle";
     g.lineWidth = 14; g.strokeStyle = INK; g.strokeText("?", 250, 190); g.fillStyle = "#f272b0"; g.fillText("?", 250, 190); }
+  else if (icon === "note") { p.poly(rrect(170, 100, 330, 290, 14), "#fff6d8", 9); for (const y of [150, 190, 230]) p.stroke([[198, y], [302, y]], 8, "#9aa0aa"); p.ell(300, 120, 26, 26, "#f272b0", 7); }
   else for (const x of [180, 250, 320]) p.dot(x, 180, 18);
   p.g.restore();
 };
