@@ -15,6 +15,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `CardsShort` | Joe Cuba asked for 100 birthday cards, got 50,000: "100 Cards", 56.7 s | `src/videos/cards/` | `production-cards/` | `out/cards_final.mp4` |
 | `PastaShort` | Rome police (2016) cook spaghetti for a lonely couple: "No One to Save", 61.0 s | `src/videos/pasta/` | `production-pasta/` | `out/pasta_final.mp4` |
 | `VoyagerShort` | Voyager 1 reaches one light-day (18 Nov 2026): "Still Saying Hello", 60.0 s | `src/videos/voyager/` | `production-voyager/` | `out/voyager_final.mp4` |
+| `PigsShort` | Swiss law: it's illegal to own one guinea pig; the rent-a-guinea-pig service: "Illegal to Be Lonely", 53.8 s | `src/videos/pigs/` | `production-pigs/` | `out/pigs_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
 
@@ -95,6 +96,9 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - Deep space works (`voyager/`): a star sphere (radius 180, unlit, `fog: false`, BackSide) high above the valley at `SPACE`, fog pushed out for `SPACE_SHOTS` in world.ts, planets as lit spheres, a 3D probe. Wide space shots use DOF 0, so front-insert badges stay sharp there.
 - Faceted cylinders put a VERTEX at +x unless rotated: a decal on a "flat" side gets a ridge through it (the gold record). Push decals past the full radius.
 - Big wall screens in a room: keep standing characters within ~±1 m of centre at a 5 m lens distance, or they fall off the vertical frame.
+- `fxBadge` clips words longer than ~12 characters ("BREAKING THE LAW", "SCHOOLTEACHER"): keep badge labels short.
+- Animals are fx cards too (`fxPig` in `pigs/toon.ts`: fur, patch, moods, old glasses + whiskers, hop, alpha fade); `pig()` in cast.ts stands a card on a floor height.
+- A fast ElevenLabs take ("s50" style) ran 52 s for 160 words: ask for the slower setting, or add ~10 words, when 60 s matters.
 
 ## Working rules
 - Push only to `PineappleForest/eliza`. End commit messages with the attribution lines the session gives you.
@@ -104,5 +108,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy `src/videos/voyager/` (the newest; `pasta/` for an ordinary street + flat story) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy the closest earlier short: `pigs/` (the newest; animals as cards, an Alpine village, a flat), `voyager/` (space, a control room), `pasta/` (a street + a flat) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
