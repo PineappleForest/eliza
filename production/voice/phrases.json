@@ -1,0 +1,175 @@
+{
+ "note": "voiced span of each narration phrase in the locked picture (seconds); new voices are time-fitted into these",
+ "phrases": [
+  {
+   "text": "In nineteen sixty-six, a computer program got its own inventor asked to leave the room.",
+   "start": 0.37,
+   "end": 5.106
+  },
+  {
+   "text": "M I T.",
+   "start": 5.641,
+   "end": 6.314
+  },
+  {
+   "text": "Joseph Weizenbaum built ELIZA to play a therapist,",
+   "start": 6.57,
+   "end": 9.482
+  },
+  {
+   "text": "because a therapist can just ask questions.",
+   "start": 9.626,
+   "end": 11.609
+  },
+  {
+   "text": "His secretary had watched him build it for months.",
+   "start": 12.02,
+   "end": 14.259
+  },
+  {
+   "text": "She knew exactly what it was.",
+   "start": 14.515,
+   "end": 15.942
+  },
+  {
+   "text": "She typed a few lines,",
+   "start": 16.291,
+   "end": 17.493
+  },
+  {
+   "text": "turned around,",
+   "start": 17.637,
+   "end": 18.364
+  },
+  {
+   "text": "and asked him to leave.",
+   "start": 18.508,
+   "end": 19.618
+  },
+  {
+   "text": "Visitors poured out their secrets.",
+   "start": 20.06,
+   "end": 21.613
+  },
+  {
+   "text": "Psychiatrists predicted fully automatic therapy.",
+   "start": 21.869,
+   "end": 24.339
+  },
+  {
+   "text": "Carl Sagan pictured rows of therapy booths,",
+   "start": 24.595,
+   "end": 26.915
+  },
+  {
+   "text": "like phone booths.",
+   "start": 27.047,
+   "end": 27.917
+  },
+  {
+   "text": "But ELIZA had a problem.",
+   "start": 28.359,
+   "end": 29.652
+  },
+  {
+   "text": "Close the session,",
+   "start": 29.908,
+   "end": 30.733
+  },
+  {
+   "text": "and it forgot you ever existed.",
+   "start": 30.865,
+   "end": 32.427
+  },
+  {
+   "text": "Luckily, it never judged you.",
+   "start": 32.838,
+   "end": 34.263
+  },
+  {
+   "text": "Unluckily, it never remembered you either.",
+   "start": 34.519,
+   "end": 36.582
+  },
+  {
+   "text": "Here's the trick.",
+   "start": 37.024,
+   "end": 37.727
+  },
+  {
+   "text": "ELIZA was a mirror.",
+   "start": 37.921,
+   "end": 38.947
+  },
+  {
+   "text": "I'm sad,",
+   "start": 39.203,
+   "end": 39.767
+  },
+  {
+   "text": "became, why are you sad?",
+   "start": 39.911,
+   "end": 41.033
+  },
+  {
+   "text": "Like talking to your dog.",
+   "start": 41.413,
+   "end": 42.601
+  },
+  {
+   "text": "He doesn't follow a word,",
+   "start": 42.795,
+   "end": 43.919
+  },
+  {
+   "text": "but he looks at you like he does,",
+   "start": 44.051,
+   "end": 45.453
+  },
+  {
+   "text": "so you keep talking.",
+   "start": 45.585,
+   "end": 46.586
+  },
+  {
+   "text": "It got a name:",
+   "start": 46.997,
+   "end": 47.72
+  },
+  {
+   "text": "the ELIZA effect.",
+   "start": 47.864,
+   "end": 48.842
+  },
+  {
+   "text": "Sixty years later, Feeloy listens,",
+   "start": 49.377,
+   "end": 51.181
+  },
+  {
+   "text": "and remembers.",
+   "start": 51.326,
+   "end": 52.063
+  },
+  {
+   "text": "Your day, your people, the little things.",
+   "start": 52.319,
+   "end": 53.986
+  },
+  {
+   "text": "ELIZA got its inventor sent out of the room.",
+   "start": 54.397,
+   "end": 56.631
+  },
+  {
+   "text": "Feeloy just asks how your interview went.",
+   "start": 56.887,
+   "end": 58.828
+  },
+  {
+   "text": "Search Feeloy on the App Store.",
+   "start": 59.27,
+   "end": 60.754
+  }
+ ]
+}

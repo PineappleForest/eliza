@@ -9,7 +9,9 @@ to leave the room, handing off to Feeloy, the companion that listens and remembe
 git clone <this repo> && cd <repo>
 ./render.sh            # -> out/final.mp4  (2K, with sound; ~10-20 min on a GPU)
 ./render.sh preview    # -> out/preview.mp4 (720p quick check)
+./render.sh remux      # after a new production/audio/mix.wav lands: re-attach sound, no re-render
 ```
+The picture is cut to the narration slots in `production/voice/phrases.json`; a replacement voice is fitted into them.
 `render.sh` installs ffmpeg/Node if missing, downloads Chrome, probes for a GPU WebGL backend (angle-egl, vulkan) and falls
 back to CPU (swangle, much slower), renders, and muxes `production/audio/mix.wav`.
 

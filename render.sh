@@ -2,10 +2,17 @@
 # One-command render of the Feeloy x ELIZA short on a GPU box (RunPod etc.).
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh preview    -> out/preview.mp4 (720x1280, quick check)
+#   ./render.sh remux      -> out/final.mp4 again from the already-rendered out/video.mp4 + the current
+#                             production/audio/mix.wav (new narration / soundtrack; no re-render, seconds)
 # Needs: Node 18+ and ffmpeg (installed automatically with apt if missing). Chrome is downloaded by Remotion.
 set -euo pipefail
 cd "$(dirname "$0")"
 MODE="${1:-final}"
+if [ "$MODE" = remux ]; then
+  [ -f out/video.mp4 ] || { echo "out/video.mp4 missing: run ./render.sh first"; exit 1; }
+  ffmpeg -y -loglevel error -i out/video.mp4 -i production/audio/mix.wav -map 0:v:0 -map 1:a:0 -c:v copy -c:a aac -b:a 256k -shortest -movflags +faststart out/final.mp4
+  echo "done: out/final.mp4"; exit 0
+fi
 command -v ffmpeg >/dev/null || { echo "installing ffmpeg"; (apt-get update -qq && apt-get install -y -qq ffmpeg) >/dev/null; }
 command -v node >/dev/null || { echo "installing node 20"; (curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && apt-get install -y -qq nodejs) >/dev/null; }
 # Chrome needs a few shared libraries on bare CUDA images

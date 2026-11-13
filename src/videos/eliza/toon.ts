@@ -998,7 +998,7 @@ export const fxBlob = (p: Pen, col: string) => {
 // ======================= ELIZA -> Feeloy additions =======================
 /** the Feeloy companion (user's character): silver hair with pink + blue streaks, high ponytail, red eyes, black outfit */
 export const COMPANION: Outfit = { jacket: "#4a4258", pants: "#2b2732", boots: "#1e1b22", dress: "#2f2a38", hat: "hair", hair: "#d6d2ea",
-  longHair: "#cfcae4", ponytail: "#cfcae4", streak: "#f272b0", eyes: "#e2364a", skin: "#fff1e8", collar: "#f6f2f7" };
+  longHair: "#cfcae4", ponytail: "#cfcae4", streak: "#f272b0", skin: "#fff1e8", collar: "#f6f2f7" }; // standard ink eyes like the rest of the cast
 
 /** a dog in profile facing screen-right, in the 600 x 1000 design space (paws on y = 975).
  *  tilt = head tilt in degrees (the "listening" tilt), pant = open mouth with tongue, wag = tail phase */
