@@ -18,6 +18,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `TowerShort` | Whittier, Alaska: almost the whole town lives in one 14-storey tower: "A Town Under One Roof", 64.7 s | `src/videos/tower/` | `production-tower/` | `out/tower_final.mp4` |
 | `NothingShort` | Shoji Morimoto, Tokyo's rent-a-person who does nothing: "Rent Me. I'll Do Nothing.", 41.7 s (a deliberately short one) | `src/videos/nothing/` | `production-nothing/` | `out/nothing_final.mp4` |
 | `WhaleShort` | The 52-hertz whale: "The Loneliest Whale", 41.9 s | `src/videos/whale/` | `production-whale/` | `out/whale_final.mp4` |
+| `BenchShort` | Burnham-on-Sea's "Happy to Chat" bench (2019): "Happy to Chat", 26.7 s (the shortest) | `src/videos/bench/` | `production-bench/` | `out/bench_final.mp4` |
 | `PigsShort` | Swiss law: it's illegal to own one guinea pig; the rent-a-guinea-pig service: "Illegal to Be Lonely", 53.8 s | `src/videos/pigs/` | `production-pigs/` | `out/pigs_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
@@ -107,6 +108,8 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - The user also asked for shorter cuts (~40-45 s, ~110 words); the "s50" take of 112 words ran 40.2 s.
 - Golden light on a front-facing set: give the shot a sun from behind the lens (`az 160`) or faces go purple in shade.
 - Underwater (`whale/`): an unlit gradient sphere (BackSide, radius 70) around R("deep") with a sand disc has no corners for the ink to find; `DEEP_SHOTS` in world.ts swaps the fog for a blue haze (6 -> 95 m). The whale is a 2D fx card mirrored by canvas transform.
+- Ground planes on the open grass must sit ABOVE D0 (sand/sea at y 0.03-0.05): planes below D0 hide under the valley grass.
+- ~75 words in the "s50" take ran 25.2 s (a 26.7 s short with the end card).
 - A fast ElevenLabs take ("s50" style) ran 52 s for 160 words: ask for the slower setting, or add ~10 words, when 60 s matters.
 
 ## Working rules
@@ -117,5 +120,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy the closest earlier short: `whale/` (the newest; underwater sphere set, sonar station, lab, open sea + boat), `nothing/` ( a Tokyo street with a bench, office, train car, platform, cafe), `tower/` ( snowy exterior, a tower, hallway/tunnel rooms, snowfall cards), `pigs/` ( animals as cards, an Alpine village, a flat), `voyager/` (space, a control room), `pasta/` (a street + a flat) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy the closest earlier short: `bench/` (the newest; an English seafront: promenade, sea wall, beach, pier, huts, bench), `whale/` ( underwater sphere set, sonar station, lab, open sea + boat), `nothing/` ( a Tokyo street with a bench, office, train car, platform, cafe), `tower/` ( snowy exterior, a tower, hallway/tunnel rooms, snowfall cards), `pigs/` ( animals as cards, an Alpine village, a flat), `voyager/` (space, a control room), `pasta/` (a street + a flat) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
