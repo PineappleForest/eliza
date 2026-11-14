@@ -14,6 +14,7 @@
 #   COMP=NothingShort          -> out/nothing_final.mp4  ("Rent Me. I'll Do Nothing.", Shoji Morimoto)
 #   COMP=WhaleShort            -> out/whale_final.mp4    ("The Loneliest Whale", 52 Hz)
 #   COMP=BenchShort            -> out/bench_final.mp4    ("Happy to Chat", the chat bench)
+#   COMP=CollinsShort          -> out/collins_final.mp4  ("The Loneliest Man in History", Michael Collins)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -40,7 +41,8 @@ case "$COMP" in
   NothingShort) MIX=production-nothing/audio/mix.wav; VID=out/nothing_video.mp4; FIN=out/nothing_final.mp4; PRE=out/nothing_preview.mp4 ;;
   WhaleShort) MIX=production-whale/audio/mix.wav; VID=out/whale_video.mp4; FIN=out/whale_final.mp4; PRE=out/whale_preview.mp4 ;;
   BenchShort) MIX=production-bench/audio/mix.wav; VID=out/bench_video.mp4; FIN=out/bench_final.mp4; PRE=out/bench_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort | NothingShort | WhaleShort | BenchShort)"; exit 1 ;;
+  CollinsShort) MIX=production-collins/audio/mix.wav; VID=out/collins_video.mp4; FIN=out/collins_final.mp4; PRE=out/collins_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort | NothingShort | WhaleShort | BenchShort | CollinsShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")

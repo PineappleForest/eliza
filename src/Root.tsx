@@ -14,6 +14,7 @@ import { TowerShort, TOWER_FRAMES } from "./videos/tower/Tower";
 import { NothingShort, NOTHING_FRAMES } from "./videos/nothing/Nothing";
 import { WhaleShort, WHALE_FRAMES } from "./videos/whale/Whale";
 import { BenchShort, BENCH_FRAMES } from "./videos/bench/Bench";
+import { CollinsShort, COLLINS_FRAMES } from "./videos/collins/Collins";
 export const Root: React.FC = () => (<>
   <Composition id="ElizaShort" component={ElizaShort} durationInFrames={ELIZA_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="RentalShort" component={RentalShort} durationInFrames={RENTAL_FRAMES} fps={30} width={1080} height={1920} />
@@ -29,4 +30,5 @@ export const Root: React.FC = () => (<>
   <Composition id="NothingShort" component={NothingShort} durationInFrames={NOTHING_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="WhaleShort" component={WhaleShort} durationInFrames={WHALE_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="BenchShort" component={BenchShort} durationInFrames={BENCH_FRAMES} fps={30} width={1080} height={1920} />
+  <Composition id="CollinsShort" component={CollinsShort} durationInFrames={COLLINS_FRAMES} fps={30} width={1080} height={1920} />
 </>);
