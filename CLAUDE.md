@@ -21,6 +21,7 @@ Each short tells one surprising true story and ends on Feeloy. Read this whole f
 | `BenchShort` | Burnham-on-Sea's "Happy to Chat" bench (2019): "Happy to Chat", 26.7 s (the shortest) | `src/videos/bench/` | `production-bench/` | `out/bench_final.mp4` |
 | `CollinsShort` | Michael Collins alone behind the Moon (Apollo 11): "The Loneliest Man in History", 33.3 s | `src/videos/collins/` | `production-collins/` | `out/collins_final.mp4` |
 | `WojtekShort` | Wojtek, the bear enlisted in the Polish army (WWII): "Private Wojtek", 30.6 s | `src/videos/wojtek/` | `production-wojtek/` | `out/wojtek_final.mp4` |
+| `BobbyShort` | Greyfriars Bobby, the terrier at his owner's grave (Edinburgh, 1858-72): "Greyfriars Bobby", 32.3 s | `src/videos/bobby/` | `production-bobby/` | `out/bobby_final.mp4` |
 | `PigsShort` | Swiss law: it's illegal to own one guinea pig; the rent-a-guinea-pig service: "Illegal to Be Lonely", 53.8 s | `src/videos/pigs/` | `production-pigs/` | `out/pigs_final.mp4` |
 
 All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1440x2560 (`--scale 1.3333`).
@@ -113,6 +114,7 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 - Ground planes on the open grass must sit ABOVE D0 (sand/sea at y 0.03-0.05): planes below D0 hide under the valley grass.
 - ~75 words in the "s50" take ran 25.2 s (a 26.7 s short with the end card).
 - There is no salute prop: a held raised hand is `wave: 0` on `put()`.
+- In make_audio.py never name a variable `G` or `I` (they are the SFX and instrument modules): chord lists named G broke the Bobby mix.
 - A fast ElevenLabs take ("s50" style) ran 52 s for 160 words: ask for the slower setting, or add ~10 words, when 60 s matters.
 
 ## Working rules
@@ -123,5 +125,5 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 ## Making the next short
 1. Pick a surprising true story with a clear link to loneliness or companionship (offer 3-4 options; the user picks).
 2. Write `production-<name>/SCRIPT.md` and `voice/script.json`, and give the user the plain narration text for ElevenLabs.
-3. Copy the closest earlier short: `wojtek/` (the newest; an army camp with tents, crates, a truck, a far hill + abbey; the standing bear card `fxBear`), `collins/` ( space with the Moon + Columbia, a lunar surface with the LM, a capsule cabin with a porthole), `bench/` ( an English seafront: promenade, sea wall, beach, pier, huts, bench), `whale/` ( underwater sphere set, sonar station, lab, open sea + boat), `nothing/` ( a Tokyo street with a bench, office, train car, platform, cafe), `tower/` ( snowy exterior, a tower, hallway/tunnel rooms, snowfall cards), `pigs/` ( animals as cards, an Alpine village, a flat), `voyager/` (space, a control room), `pasta/` (a street + a flat) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
+3. Copy the closest earlier short: `bobby/` (the newest; an Edinburgh kirkyard with gravestones, a kirk, tenements, a cobbled street + plinth; the dog card `fxDog`, rain/snow cards), `wojtek/` ( an army camp with tents, crates, a truck, a far hill + abbey; the standing bear card `fxBear`), `collins/` ( space with the Moon + Columbia, a lunar surface with the LM, a capsule cabin with a porthole), `bench/` ( an English seafront: promenade, sea wall, beach, pier, huts, bench), `whale/` ( underwater sphere set, sonar station, lab, open sea + boat), `nothing/` ( a Tokyo street with a bench, office, train car, platform, cafe), `tower/` ( snowy exterior, a tower, hallway/tunnel rooms, snowfall cards), `pigs/` ( animals as cards, an Alpine village, a flat), `voyager/` (space, a control room), `pasta/` (a street + a flat) to `src/videos/<name>/`, rename the component and composition, and register it in `src/Root.tsx`. Add a `COMP` case to `render.sh`.
 4. Once the take arrives: align, set `SHOTS`/`CAMS` to the words, then cast, build, captions, audio, stills, push.
