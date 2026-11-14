@@ -11,6 +11,7 @@
 #   COMP=VoyagerShort          -> out/voyager_final.mp4  ("Still Saying Hello", Voyager 1 at one light-day)
 #   COMP=PigsShort             -> out/pigs_final.mp4     ("Illegal to Be Lonely", the Swiss guinea pig law)
 #   COMP=TowerShort            -> out/tower_final.mp4    ("A Town Under One Roof", Whittier, Alaska)
+#   COMP=NothingShort          -> out/nothing_final.mp4  ("Rent Me. I'll Do Nothing.", Shoji Morimoto)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -34,7 +35,8 @@ case "$COMP" in
   VoyagerShort) MIX=production-voyager/audio/mix.wav; VID=out/voyager_video.mp4; FIN=out/voyager_final.mp4; PRE=out/voyager_preview.mp4 ;;
   PigsShort) MIX=production-pigs/audio/mix.wav; VID=out/pigs_video.mp4; FIN=out/pigs_final.mp4; PRE=out/pigs_preview.mp4 ;;
   TowerShort) MIX=production-tower/audio/mix.wav; VID=out/tower_video.mp4; FIN=out/tower_final.mp4; PRE=out/tower_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort)"; exit 1 ;;
+  NothingShort) MIX=production-nothing/audio/mix.wav; VID=out/nothing_video.mp4; FIN=out/nothing_final.mp4; PRE=out/nothing_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort | NothingShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")
