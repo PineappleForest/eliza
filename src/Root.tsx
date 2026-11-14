@@ -15,6 +15,7 @@ import { NothingShort, NOTHING_FRAMES } from "./videos/nothing/Nothing";
 import { WhaleShort, WHALE_FRAMES } from "./videos/whale/Whale";
 import { BenchShort, BENCH_FRAMES } from "./videos/bench/Bench";
 import { CollinsShort, COLLINS_FRAMES } from "./videos/collins/Collins";
+import { WojtekShort, WOJTEK_FRAMES } from "./videos/wojtek/Wojtek";
 export const Root: React.FC = () => (<>
   <Composition id="ElizaShort" component={ElizaShort} durationInFrames={ELIZA_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="RentalShort" component={RentalShort} durationInFrames={RENTAL_FRAMES} fps={30} width={1080} height={1920} />
@@ -31,4 +32,5 @@ export const Root: React.FC = () => (<>
   <Composition id="WhaleShort" component={WhaleShort} durationInFrames={WHALE_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="BenchShort" component={BenchShort} durationInFrames={BENCH_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="CollinsShort" component={CollinsShort} durationInFrames={COLLINS_FRAMES} fps={30} width={1080} height={1920} />
+  <Composition id="WojtekShort" component={WojtekShort} durationInFrames={WOJTEK_FRAMES} fps={30} width={1080} height={1920} />
 </>);
