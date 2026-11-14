@@ -10,6 +10,7 @@ import { CardsShort, CARDS_FRAMES } from "./videos/cards/Cards";
 import { PastaShort, PASTA_FRAMES } from "./videos/pasta/Pasta";
 import { VoyagerShort, VOYAGER_FRAMES } from "./videos/voyager/Voyager";
 import { PigsShort, PIGS_FRAMES } from "./videos/pigs/Pigs";
+import { TowerShort, TOWER_FRAMES } from "./videos/tower/Tower";
 export const Root: React.FC = () => (<>
   <Composition id="ElizaShort" component={ElizaShort} durationInFrames={ELIZA_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="RentalShort" component={RentalShort} durationInFrames={RENTAL_FRAMES} fps={30} width={1080} height={1920} />
@@ -21,4 +22,5 @@ export const Root: React.FC = () => (<>
   <Composition id="PastaShort" component={PastaShort} durationInFrames={PASTA_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="VoyagerShort" component={VoyagerShort} durationInFrames={VOYAGER_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="PigsShort" component={PigsShort} durationInFrames={PIGS_FRAMES} fps={30} width={1080} height={1920} />
+  <Composition id="TowerShort" component={TowerShort} durationInFrames={TOWER_FRAMES} fps={30} width={1080} height={1920} />
 </>);
