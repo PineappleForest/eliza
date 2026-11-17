@@ -18,6 +18,7 @@ import { CollinsShort, COLLINS_FRAMES } from "./videos/collins/Collins";
 import { WojtekShort, WOJTEK_FRAMES } from "./videos/wojtek/Wojtek";
 import { BobbyShort, BOBBY_FRAMES } from "./videos/bobby/Bobby";
 import { SwanShort, SWAN_FRAMES } from "./videos/swan/Swan";
+import { OppyShort, OPPY_FRAMES } from "./videos/oppy/Oppy";
 export const Root: React.FC = () => (<>
   <Composition id="ElizaShort" component={ElizaShort} durationInFrames={ELIZA_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="RentalShort" component={RentalShort} durationInFrames={RENTAL_FRAMES} fps={30} width={1080} height={1920} />
@@ -37,4 +38,5 @@ export const Root: React.FC = () => (<>
   <Composition id="WojtekShort" component={WojtekShort} durationInFrames={WOJTEK_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="BobbyShort" component={BobbyShort} durationInFrames={BOBBY_FRAMES} fps={30} width={1080} height={1920} />
   <Composition id="SwanShort" component={SwanShort} durationInFrames={SWAN_FRAMES} fps={30} width={1080} height={1920} />
+  <Composition id="OppyShort" component={OppyShort} durationInFrames={OPPY_FRAMES} fps={30} width={1080} height={1920} />
 </>);

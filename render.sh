@@ -18,6 +18,7 @@
 #   COMP=WojtekShort           -> out/wojtek_final.mp4   ("Private Wojtek", the soldier bear)
 #   COMP=BobbyShort            -> out/bobby_final.mp4    ("Greyfriars Bobby", the dog who stayed)
 #   COMP=SwanShort             -> out/swan_final.mp4     ("The Swan Who Loved a Boat", Petra)
+#   COMP=OppyShort             -> out/oppy_final.mp4     ("My Battery Is Low", Opportunity rover)
 #   ./render.sh            -> out/final.mp4  (1440x2560, 30 fps, h264 crf 16, soundtrack muxed)
 #   ./render.sh final --props='{"logo":true}'   extra options after the mode go to the renderer
 #                             (logo: put your logo at public/eliza/logo.png; captions:false = no subtitles)
@@ -48,7 +49,8 @@ case "$COMP" in
   WojtekShort) MIX=production-wojtek/audio/mix.wav; VID=out/wojtek_video.mp4; FIN=out/wojtek_final.mp4; PRE=out/wojtek_preview.mp4 ;;
   BobbyShort) MIX=production-bobby/audio/mix.wav; VID=out/bobby_video.mp4; FIN=out/bobby_final.mp4; PRE=out/bobby_preview.mp4 ;;
   SwanShort) MIX=production-swan/audio/mix.wav; VID=out/swan_video.mp4; FIN=out/swan_final.mp4; PRE=out/swan_preview.mp4 ;;
-  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort | NothingShort | WhaleShort | BenchShort | CollinsShort | WojtekShort | BobbyShort | SwanShort)"; exit 1 ;;
+  OppyShort) MIX=production-oppy/audio/mix.wav; VID=out/oppy_video.mp4; FIN=out/oppy_final.mp4; PRE=out/oppy_preview.mp4 ;;
+  *) echo "unknown COMP=$COMP (ElizaShort | RentalShort | ChatShort | MinisterShort | SwedenShort | MonowiShort | CardsShort | PastaShort | VoyagerShort | PigsShort | TowerShort | NothingShort | WhaleShort | BenchShort | CollinsShort | WojtekShort | BobbyShort | SwanShort | OppyShort)"; exit 1 ;;
 esac
 case "$MODE" in final|preview|remux) shift || true ;; *) MODE=final ;; esac
 EXTRA=("$@")
