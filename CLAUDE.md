@@ -78,6 +78,7 @@ All are 1080x1920 at 30 fps, registered in `src/Root.tsx`. The final render is 1
 5. Lock the picture timing to the words: every visual reaction lands 0-3 frames before its word.
 
 ## Story recipe that worked
+- **Current direction (Nov 2026):** the best-performing short so far was the Mars rover singing "Happy Birthday" to itself. Focus on that theme: space probes, rovers and robots that feel strangely human or lonely. Make them really interesting and **20-30 s long** (~60-75 words in the "s50" take).
 - Hook (an absurd true fact), then the setting, then three or four escalating beats, then the twist, then the turn to the lonely person, then Feeloy, then the CTA.
 - **CTA spoken: "Search Feeloy on the App Store."** End card: logo plus wordmark.
 - Length 60-62 s. Mark reads about 2.75 words/s, so a 60 s script is ~145-150 words (193 words ran 70 s; 135 words with many spelled-out numbers ran 50 s). English only. All facts sourced in SCRIPT.md.
